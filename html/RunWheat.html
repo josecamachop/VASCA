@@ -1,0 +1,272 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>ASCA Example in Variable-Selection ANOVA Simultaneous Component Analysis. Bioinformatics. 2022 </title><meta name="generator" content="MATLAB 9.1"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2022-10-14"><meta name="DC.source" content="RunWheat.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>ASCA Example in Variable-Selection ANOVA Simultaneous Component Analysis. Bioinformatics. 2022 </h1><!--introduction--><p>Camacho J, Vitale R, Morales-Jimenez D. and Gómez-Llorente C. </p><p>ASCA example with the data collected in Warth, B. et al. (2014). Metabolomics, 11(3), 722&#8211;738. Data were downloaded from the MetaboLights metabolomics public data repository (www.ebi.ac.uk/\-metabolights, with accession number MTBLS112).  Experiments aimed at identifying changes in the metabolome of wheat (Triticum aestivum) induced by deoxynivalenol (DON), a mycotxin produced by the infestant Fusarium graminearum and related species causing the devastating plant disease Fusarium head blight. In the study, four wheat genotypes with known varying resistance to Fusarium were treated with either DON or water control and harvested after 0, 12, 24, 48 and 96 hours after treatment. Target GC-MS profiling was used to quantify an array of 57 metabolites. The resulting data matrix X has dimensions 296 x 57.</p><p>coded by: Jose Camacho Paez (<a href="mailto:josecamacho@ugr.es">josecamacho@ugr.es</a>) last modification: 23/Sep/2022</p><p>Copyright (C) 2022  University of Granada, Granada Copyright (C) 2022  Jose Camacho Paez</p><p>This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.</p><p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.</p><p>You should have received a copy of the GNU General Public License along with this program.  If not, see <a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Load and prepare indices</a></li><li><a href="#2">ASCA model: factorization and permutation testing</a></li><li><a href="#3">Visualization</a></li></ul></div><h2 id="1">Load and prepare indices</h2><pre class="codeinput">load <span class="string">wheat</span>
+
+utime = unique(time);
+<span class="keyword">for</span> i=1:length(time)
+    <span class="keyword">for</span> j=1:length(utime)
+        <span class="keyword">if</span> strcmp(time{i},utime(j))
+            ytim(i)=j;
+        <span class="keyword">end</span>
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+utrait = unique(trait);
+<span class="keyword">for</span> i=1:length(trait)
+    <span class="keyword">for</span> j=1:length(utrait)
+        <span class="keyword">if</span> strcmp(trait{i},utrait(j))
+            ytra(i)=j;
+        <span class="keyword">end</span>
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+utreat = unique(treatment);
+<span class="keyword">for</span> i=1:length(treatment)
+    <span class="keyword">for</span> j=1:length(utreat)
+        <span class="keyword">if</span> strcmp(treatment{i},utreat(j))
+            ytre(i)=j;
+        <span class="keyword">end</span>
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+F=[ytim' ytra' ytre'];
+</pre><h2 id="2">ASCA model: factorization and permutation testing</h2><pre class="codeinput">[table, paranovao] = parglm(X, F);
+ascao = asca(paranovao);
+
+table
+</pre><pre class="codeoutput">
+table = 
+
+      Source       SumSq     PercSumSq    df     MeanSq      F        Pvalue 
+    ___________    ______    _________    ___    ______    ______    ________
+
+    'Mean'          61649     84.23         1     61649       NaN         NaN
+    'Factor 1'     2013.4    2.7508         4    503.34     13.87    0.000999
+    'Factor 2'     1366.8    1.8674         3    455.59    12.554    0.000999
+    'Factor 3'     1230.4    1.6811         1    1230.4    33.904    0.000999
+    'Residuals'    6931.5    9.4704       191    36.291       NaN         NaN
+    'Total'         73191       100       200    365.96       NaN         NaN
+
+</pre><h2 id="3">Visualization</h2><pre class="codeinput"><span class="comment">% Factor time: 2 PCs</span>
+i = 1;
+ascao.factors{i}.lvs=1:2;
+
+scores(ascao.factors{i},[],[],<span class="string">'Factor Time'</span>,[],ascao.design(:,i));
+legend(utime)
+saveas(gcf,<span class="string">'Fig/scoresTime'</span>);
+saveas(gcf,<span class="string">'Fig/scoresTime.eps'</span>,<span class="string">'epsc'</span>);
+
+loadings(ascao.factors{i},[],<span class="string">'Factor Time'</span>,var_l);
+saveas(gcf,<span class="string">'Fig/loadsTime'</span>);
+saveas(gcf,<span class="string">'Fig/loadsTime.eps'</span>,<span class="string">'epsc'</span>);
+
+<span class="comment">% Factor Trait: 2 PCs</span>
+i = 2;
+ascao.factors{i}.lvs=1:2;
+
+scores(ascao.factors{i},[],[],<span class="string">'Factor Trait'</span>,[],ascao.design(:,i));
+legend(utrait)
+saveas(gcf,<span class="string">'Fig/scoresTrait'</span>);
+saveas(gcf,<span class="string">'Fig/scoresTrait.eps'</span>,<span class="string">'epsc'</span>);
+
+loadings(ascao.factors{i},[],<span class="string">'Factor Trait'</span>,var_l);
+saveas(gcf,<span class="string">'Fig/loadsTrait'</span>);
+saveas(gcf,<span class="string">'Fig/loadsTrait.eps'</span>,<span class="string">'epsc'</span>);
+
+<span class="comment">% Factor Treatment</span>
+i = 3;
+
+scores(ascao.factors{i},[],[],<span class="string">'Factor Treatment'</span>,[],ascao.design(:,i));
+legend(utreat)
+saveas(gcf,<span class="string">'Fig/scoresTreat'</span>);
+saveas(gcf,<span class="string">'Fig/scoresTreat.eps'</span>,<span class="string">'epsc'</span>);
+
+loadings(ascao.factors{i},[],<span class="string">'Factor Treatment'</span>,var_l);
+saveas(gcf,<span class="string">'Fig/loadsTreat'</span>);
+saveas(gcf,<span class="string">'Fig/loadsTreat.eps'</span>,<span class="string">'epsc'</span>);
+</pre><img vspace="5" hspace="5" src="RunWheat_01.png" alt=""> <img vspace="5" hspace="5" src="RunWheat_02.png" alt=""> <img vspace="5" hspace="5" src="RunWheat_03.png" alt=""> <img vspace="5" hspace="5" src="RunWheat_04.png" alt=""> <img vspace="5" hspace="5" src="RunWheat_05.png" alt=""> <img vspace="5" hspace="5" src="RunWheat_06.png" alt=""> <p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2016b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% First Simulation Example in Camacho J, Vitale R, Morales-Jimenez D and 
+% Gómez-Llorente C. Variable-Selection ANOVA Simultaneous Component Analysis. 
+% Bioinformatics. 2022 
+%
+% ASCA example with the data collected in Warth, B. et al. (2014). 
+% Metabolomics, 11(3), 722–738. Data were downloaded from the MetaboLights 
+% metabolomics public data repository (www.ebi.ac.uk/\-metabolights, with 
+% accession number MTBLS112).  Experiments aimed at identifying changes in 
+% the metabolome of wheat (Triticum aestivum) induced by deoxynivalenol 
+% (DON), a mycotxin produced by the infestant Fusarium graminearum and 
+% related species causing the devastating plant disease Fusarium head 
+% blight. In the study, four wheat genotypes with known varying resistance 
+% to Fusarium were treated with either DON or water control and harvested 
+% after 0, 12, 24, 48 and 96 hours after treatment. Target GC-MS profiling 
+% was used to quantify an array of 57 metabolites. The resulting data 
+% matrix X has dimensions 296 x 57. 
+%
+% coded by: Jose Camacho Paez (josecamacho@ugr.es)
+% last modification: 23/Sep/2022
+%
+% Copyright (C) 2022  University of Granada, Granada
+% Copyright (C) 2022  Jose Camacho Paez
+% 
+% This program is free software: you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation, either version 3 of the License, or
+% (at your option) any later version.
+% 
+% This program is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+% 
+% You should have received a copy of the GNU General Public License
+% along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+%% Load and prepare indices
+
+load wheat
+
+utime = unique(time);
+for i=1:length(time)
+    for j=1:length(utime)
+        if strcmp(time{i},utime(j))
+            ytim(i)=j;
+        end
+    end
+end
+
+utrait = unique(trait);
+for i=1:length(trait)
+    for j=1:length(utrait)
+        if strcmp(trait{i},utrait(j))
+            ytra(i)=j;
+        end
+    end
+end
+
+utreat = unique(treatment);
+for i=1:length(treatment)
+    for j=1:length(utreat)
+        if strcmp(treatment{i},utreat(j))
+            ytre(i)=j;
+        end
+    end
+end
+
+F=[ytim' ytra' ytre'];
+
+%% ASCA model: factorization and permutation testing
+
+[table, paranovao] = parglm(X, F);
+ascao = asca(paranovao);
+
+table
+
+%% Visualization
+
+% Factor time: 2 PCs
+i = 1;
+ascao.factors{i}.lvs=1:2;
+
+scores(ascao.factors{i},[],[],'Factor Time',[],ascao.design(:,i));
+legend(utime)
+saveas(gcf,'Fig/scoresTime');
+saveas(gcf,'Fig/scoresTime.eps','epsc');
+
+loadings(ascao.factors{i},[],'Factor Time',var_l);
+saveas(gcf,'Fig/loadsTime');
+saveas(gcf,'Fig/loadsTime.eps','epsc');
+
+% Factor Trait: 2 PCs
+i = 2;
+ascao.factors{i}.lvs=1:2;
+
+scores(ascao.factors{i},[],[],'Factor Trait',[],ascao.design(:,i));
+legend(utrait)
+saveas(gcf,'Fig/scoresTrait');
+saveas(gcf,'Fig/scoresTrait.eps','epsc');
+
+loadings(ascao.factors{i},[],'Factor Trait',var_l);
+saveas(gcf,'Fig/loadsTrait');
+saveas(gcf,'Fig/loadsTrait.eps','epsc');
+
+% Factor Treatment
+i = 3;
+
+scores(ascao.factors{i},[],[],'Factor Treatment',[],ascao.design(:,i));
+legend(utreat)
+saveas(gcf,'Fig/scoresTreat');
+saveas(gcf,'Fig/scoresTreat.eps','epsc');
+
+loadings(ascao.factors{i},[],'Factor Treatment',var_l);
+saveas(gcf,'Fig/loadsTreat');
+saveas(gcf,'Fig/loadsTreat.eps','epsc');
+
+##### SOURCE END #####
+--></body></html>

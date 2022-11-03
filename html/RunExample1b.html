@@ -1,0 +1,434 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>First simulation example, subexample B, in Variable-Selection ANOVA Simultaneous Component Analysis. Bioinformatics. 2022</title><meta name="generator" content="MATLAB 9.1"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2022-11-01"><meta name="DC.source" content="RunExample1b.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>First simulation example, subexample B, in Variable-Selection ANOVA Simultaneous Component Analysis. Bioinformatics. 2022</h1><!--introduction--><p>Camacho J, Vitale R, Morales-Jimenez D. and G&oacute;mez-Llorente C.</p><p>We simulate two factors with two levels, with 40 subjects for which 400 variables or responses (e.g., -omics features) are collected. The example illustrates the case where the data matrix and the levels coding for the factor are unrelated.</p><p>coded by: Jose Camacho (<a href="mailto:josecamacho@ugr.es">josecamacho@ugr.es</a>) last modification: 19/Oct/2022</p><p>Copyright (C) 2022  University of Granada, Granada Copyright (C) 2022  Jose Camacho Paez</p><p>This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.</p><p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.</p><p>You should have received a copy of the GNU General Public License along with this program.  If not, see <a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Simulation</a></li><li><a href="#2">Plot Figures</a></li><li><a href="#4">Plot zoom</a></li><li><a href="#6">Compute table with statistics</a></li></ul></div><h2 id="1">Simulation</h2><pre class="codeinput">clear
+
+n_obs = 48;       <span class="comment">% number of individuals</span>
+n_vars = 400;     <span class="comment">% number of responses or variables</span>
+rep = 1000;        <span class="comment">% number of repetitions of the simulation</span>
+simMV_engine = true; <span class="comment">% simulation engine, true for simuleMV, false for randn</span>
+
+
+close <span class="string">all</span>
+p1 = zeros(rep,2);
+p2 = zeros(rep,n_vars,2);
+p3 = zeros(rep,n_vars,2);
+p4 = zeros(rep,n_vars,2);
+<span class="keyword">parfor</span> i= 1:rep
+
+    reps = 4;
+    levels = {[1,2,3,4],[1,2,3]};
+
+    class = create_design(levels,reps);
+
+    <span class="keyword">if</span> simMV_engine
+        X = simuleMV(n_obs,n_vars,7);       <span class="comment">% Data is independent to the class, and obtained with simuleMV with a medium correlation level</span>
+    <span class="keyword">else</span>
+        X = randn(n_obs,n_vars);
+    <span class="keyword">end</span>
+
+    s = rng(i);
+    [~,parglmo] = parglm(X,class); <span class="comment">% general linear model (GLM) factorization and (ASCA type) multivariate significance testing</span>
+    rng(s);
+    [~,parglmoVS] = parglmVS(X,class); <span class="comment">% GLM factorization and (VASCA-type) incremental multivariate significance testing</span>
+    rng(s);
+    [~,parglmoMC] = parglmMC(X,class); <span class="comment">% GLM factorization and Benjamini-Hochberg (BH) univariate significant testing</span>
+    rng(s);
+    parglmoG = parglm_genes(X,class); <span class="comment">% GLM factorization and ASCA-genes</span>
+
+    p1(i,:) = parglmo.p;
+    p2(i,:,:) = [parglmoVS.p(parglmoVS.ord_factors(1,:)',1) parglmoVS.p(parglmoVS.ord_factors(2,:)',2)];
+    p3(i,:,:) = [parglmoMC.p(parglmoMC.ord_factors(1,:)',1) parglmoMC.p(parglmoMC.ord_factors(2,:)',2)];
+    p4(i,:,:) = [parglmoG.p(parglmoG.ord_factors(1,:)',1) parglmoG.p(parglmoG.ord_factors(2,:)',2)];
+<span class="keyword">end</span>
+
+save <span class="string">example1b</span>
+</pre><h2 id="2">Plot Figures</h2><pre class="codeinput">load <span class="string">example1b</span>
+
+minT = 1e-3;
+maxT = 1;
+h = figure; hold <span class="string">on</span>
+
+p1(find(p1(:)&lt;minT)) = minT;
+p1(find(p1(:)&gt;maxT)) = maxT;
+p2(find(p2(:)&lt;minT)) = minT;
+p2(find(p2(:)&gt;maxT)) = maxT;
+p3(find(p3(:)&lt;minT)) = minT;
+p3(find(p3(:)&gt;maxT)) = maxT;
+p4(find(p4(:)&lt;minT)) = minT;
+p4(find(p4(:)&gt;maxT)) = maxT;
+
+mp3 = squeeze(mean(p3));
+mp2 = squeeze(mean(p2));
+mp4 = squeeze(mean(p4));
+
+<span class="keyword">for</span> j=1:2
+</pre><pre class="codeinput">    h = figure; hold <span class="string">on</span>
+
+    plot(mp3(:,j),<span class="string">'k--'</span>)
+    plot([1 n_vars],[mean(p1(:,j)) mean(p1(:,j))],<span class="string">'b-.'</span>)
+    plot(mp2(:,j),<span class="string">'g-o'</span>)
+    plot(mp4(:,j),<span class="string">'c-o'</span>)
+
+    plot([0 n_vars],[0.05 0.05],<span class="string">'r:'</span>)
+    plot([0 n_vars],[0.01 0.01],<span class="string">'r--'</span>)
+    legend(<span class="string">'FDR'</span>,<span class="string">'ASCA'</span>,<span class="string">'VASCA'</span>,<span class="string">'ASCA-genes'</span>,<span class="string">'\alpha=0.05'</span>,<span class="string">'\alpha=0.01'</span>,<span class="string">'Location'</span>,<span class="string">'southeast'</span>)
+
+    xr = [];
+    yr = [];
+    <span class="keyword">for</span> i=1:size(p3,2)
+        xr = [xr;i*ones(1,2)];
+        yr = [yr;[mean(p3(:,i,j))-std(p3(:,i,j)) mean(p3(:,i,j))+std(p3(:,i,j))]];
+    <span class="keyword">end</span>
+    yr(find(yr&lt;minT)) = minT;
+    yr(find(yr&gt;maxT)) = maxT;
+    fill([xr(:,1);flipud(xr(:,2))],[yr(:,1);flipud(yr(:,2))],<span class="string">'k'</span>,<span class="string">'FaceAlpha'</span>,0.2,<span class="string">'EdgeColor'</span>,<span class="string">'none'</span>);
+    xr = [];
+    yr = [];
+    <span class="keyword">for</span> i=1:size(p2,2)
+        xr = [xr;i*ones(1,2)];
+        yr = [yr;[mean(p2(:,i,j))-std(p2(:,i,j)) mean(p2(:,i,j))+std(p2(:,i,j))]];
+    <span class="keyword">end</span>
+    yr(find(yr&lt;minT)) = minT;
+    yr(find(yr&gt;maxT)) = maxT;
+    fill([xr(:,1);flipud(xr(:,2))],[yr(:,1);flipud(yr(:,2))],<span class="string">'g'</span>,<span class="string">'FaceAlpha'</span>,0.2,<span class="string">'EdgeColor'</span>,<span class="string">'none'</span>);
+
+    xr = [];
+    yr = [];
+    <span class="keyword">for</span> i=1:size(p2,2)
+        xr = [xr;i*ones(1,2)];
+        yr = [yr;[mean(p4(:,i,j))-std(p4(:,i,j)) mean(p4(:,i,j))+std(p4(:,i,j))]];
+    <span class="keyword">end</span>
+    yr(find(yr&lt;minT)) = minT;
+    yr(find(yr&gt;maxT)) = maxT;
+    fill([xr(:,1);flipud(xr(:,2))],[yr(:,1);flipud(yr(:,2))],<span class="string">'c'</span>,<span class="string">'FaceAlpha'</span>,0.2,<span class="string">'EdgeColor'</span>,<span class="string">'none'</span>);
+
+    a=get(h,<span class="string">'CurrentAxes'</span>);
+    set(a,<span class="string">'FontSize'</span>,14)
+    set(a,<span class="string">'YScale'</span>,<span class="string">'log'</span>)
+    ylabel(<span class="string">'p-values'</span>,<span class="string">'FontSize'</span>,18)
+    xlabel(<span class="string">'Variables in selected order'</span>,<span class="string">'FontSize'</span>,18)
+
+    saveas(gcf,sprintf(<span class="string">'Fig/example1b_100_%d'</span>,j));
+    saveas(gcf,sprintf(<span class="string">'Fig/example1b_100_%d.eps'</span>,j),<span class="string">'epsc'</span>);
+</pre><img vspace="5" hspace="5" src="RunExample1b_01.png" style="width:560px;height:420px;" alt=""> <img vspace="5" hspace="5" src="RunExample1b_06.png" style="width:560px;height:420px;" alt=""> <h2 id="4">Plot zoom</h2><pre class="codeinput">    set(a,<span class="string">'Box'</span>,<span class="string">'on'</span>)
+    ylabel(<span class="string">''</span>)
+    xlabel(<span class="string">''</span>)
+    axis([1 10 1e-3 1])
+    legend <span class="string">HIDE</span>
+
+    saveas(gcf,sprintf(<span class="string">'Fig/example1b_100zoom_%d'</span>,j));
+    saveas(gcf,sprintf(<span class="string">'Fig/example1b_100zoom_%d.eps'</span>,j),<span class="string">'epsc'</span>);
+
+<span class="comment">% QQ-plot</span>
+
+figure, qqplot(p1(:,j),makedist(<span class="string">'Uniform'</span>)), title(<span class="string">'QQ-plot ASCA'</span>)
+saveas(gcf,<span class="string">'./Fig/example1b_QQ_ASCA_%d'</span>);
+saveas(gcf,<span class="string">'./Fig/example1b_QQ_ASCA_%d.eps'</span>,<span class="string">'epsc'</span>);
+
+figure, qqplot(p2(:,1,j),makedist(<span class="string">'Uniform'</span>)), title(<span class="string">'QQ-plot VASCA'</span>)
+saveas(gcf,sprintf(<span class="string">'./Fig/example1b_QQ_VASCA_%d'</span>,j));
+saveas(gcf,sprintf(<span class="string">'./Fig/example1b_QQ_VASCA_%d.eps'</span>,j),<span class="string">'epsc'</span>);
+
+figure, qqplot(p3(:,1,j),makedist(<span class="string">'Uniform'</span>)), title(<span class="string">'QQ-plot FDR'</span>)
+saveas(gcf,sprintf(<span class="string">'./Fig/example1b_QQ_FDR_%d'</span>,j));
+saveas(gcf,sprintf(<span class="string">'./Fig/example1b_QQ_FDR_%d.eps'</span>,j),<span class="string">'epsc'</span>);
+</pre><img vspace="5" hspace="5" src="RunExample1b_02.png" style="width:560px;height:420px;" alt=""> <img vspace="5" hspace="5" src="RunExample1b_03.png" style="width:560px;height:420px;" alt=""> <img vspace="5" hspace="5" src="RunExample1b_04.png" style="width:560px;height:420px;" alt=""> <img vspace="5" hspace="5" src="RunExample1b_05.png" style="width:560px;height:420px;" alt=""> <img vspace="5" hspace="5" src="RunExample1b_07.png" style="width:560px;height:420px;" alt=""> <img vspace="5" hspace="5" src="RunExample1b_08.png" style="width:560px;height:420px;" alt=""> <img vspace="5" hspace="5" src="RunExample1b_09.png" style="width:560px;height:420px;" alt=""> <img vspace="5" hspace="5" src="RunExample1b_10.png" style="width:560px;height:420px;" alt=""> <pre class="codeinput"><span class="keyword">end</span>
+</pre><h2 id="6">Compute table with statistics</h2><pre class="codeinput">load <span class="string">example1b</span>
+
+name={<span class="string">'FDR_1'</span>,<span class="string">'ASCA_1'</span>,<span class="string">'VASCA_1'</span>,<span class="string">'ASCA-genes_1'</span>,<span class="string">'FDR_2'</span>,<span class="string">'ASCA_2'</span>,<span class="string">'VASCA_2'</span>,<span class="string">'ASCA-genes_2'</span>}';
+
+X = [];
+<span class="keyword">for</span> j=1:2
+    p3b = p3(:,:,j)&lt;0.01; <span class="comment">% FDR</span>
+    p3_FPR = sum(sum(p3b))/(rep*(n_vars));
+    p1b = p1(:,j)&lt;0.01; <span class="comment">% ASCA</span>
+    p1_FPR = sum(p1b)/rep;
+    p2b = p2(:,:,j)&lt;0.01; <span class="comment">% VASCA</span>
+    p2_FPR = sum(sum(p2b))/(rep*(n_vars));
+    p4b = p4(:,:,j)&lt;0.01; <span class="comment">% ASCA-genes</span>
+    p4_FPR = sum(sum(p4b))/(rep*(n_vars));
+
+    X = [X;p3_FPR;p1_FPR;p2_FPR;p4_FPR];
+<span class="keyword">end</span>
+
+T = table(name, X, <span class="string">'VariableNames'</span>, {<span class="string">'Method'</span>,<span class="string">'FPR'</span>})
+</pre><pre class="codeoutput">
+T = 
+
+        Method           FPR   
+    ______________    _________
+
+    'FDR_1'             0.00019
+    'ASCA_1'              0.009
+    'VASCA_1'         0.0058475
+    'ASCA-genes_1'      0.02446
+    'FDR_2'             3.5e-05
+    'ASCA_2'              0.005
+    'VASCA_2'           0.00186
+    'ASCA-genes_2'     0.024945
+
+</pre><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2016b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% First simulation example, subexample B, in Variable-Selection ANOVA Simultaneous Component Analysis. Bioinformatics. 2022 
+% Camacho J, Vitale R, Morales-Jimenez D. and Gómez-Llorente C. 
+%
+% We simulate two factors with two levels, with 40 subjects for which 400 
+% variables or responses (e.g., -omics features) are collected. The  
+% example illustrates the case where the data matrix and the levels coding 
+% for the factor are unrelated. 
+%
+% coded by: Jose Camacho (josecamacho@ugr.es)
+% last modification: 19/Oct/2022
+%
+% Copyright (C) 2022  University of Granada, Granada
+% Copyright (C) 2022  Jose Camacho Paez
+% 
+% This program is free software: you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation, either version 3 of the License, or
+% (at your option) any later version.
+% 
+% This program is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+% 
+% You should have received a copy of the GNU General Public License
+% along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+%% Simulation
+
+clear
+
+n_obs = 48;       % number of individuals 
+n_vars = 400;     % number of responses or variables
+rep = 1000;        % number of repetitions of the simulation
+simMV_engine = true; % simulation engine, true for simuleMV, false for randn 
+
+
+close all
+p1 = zeros(rep,2);
+p2 = zeros(rep,n_vars,2);
+p3 = zeros(rep,n_vars,2);
+p4 = zeros(rep,n_vars,2);
+parfor i= 1:rep
+
+    reps = 4;
+    levels = {[1,2,3,4],[1,2,3]};
+    
+    class = create_design(levels,reps);
+    
+    if simMV_engine
+        X = simuleMV(n_obs,n_vars,7);       % Data is independent to the class, and obtained with simuleMV with a medium correlation level 
+    else
+        X = randn(n_obs,n_vars);
+    end
+    
+    s = rng(i);
+    [~,parglmo] = parglm(X,class); % general linear model (GLM) factorization and (ASCA type) multivariate significance testing
+    rng(s);
+    [~,parglmoVS] = parglmVS(X,class); % GLM factorization and (VASCA-type) incremental multivariate significance testing
+    rng(s);
+    [~,parglmoMC] = parglmMC(X,class); % GLM factorization and Benjamini-Hochberg (BH) univariate significant testing
+    rng(s);
+    parglmoG = parglm_genes(X,class); % GLM factorization and ASCA-genes
+    
+    p1(i,:) = parglmo.p;
+    p2(i,:,:) = [parglmoVS.p(parglmoVS.ord_factors(1,:)',1) parglmoVS.p(parglmoVS.ord_factors(2,:)',2)];
+    p3(i,:,:) = [parglmoMC.p(parglmoMC.ord_factors(1,:)',1) parglmoMC.p(parglmoMC.ord_factors(2,:)',2)];
+    p4(i,:,:) = [parglmoG.p(parglmoG.ord_factors(1,:)',1) parglmoG.p(parglmoG.ord_factors(2,:)',2)];
+end
+
+save example1b
+
+%% Plot Figures 
+
+load example1b
+
+minT = 1e-3;
+maxT = 1;
+h = figure; hold on
+
+p1(find(p1(:)<minT)) = minT;
+p1(find(p1(:)>maxT)) = maxT;
+p2(find(p2(:)<minT)) = minT;
+p2(find(p2(:)>maxT)) = maxT;
+p3(find(p3(:)<minT)) = minT;
+p3(find(p3(:)>maxT)) = maxT;
+p4(find(p4(:)<minT)) = minT;
+p4(find(p4(:)>maxT)) = maxT;
+
+mp3 = squeeze(mean(p3));
+mp2 = squeeze(mean(p2));
+mp4 = squeeze(mean(p4));
+
+for j=1:2
+    
+    h = figure; hold on
+    
+    plot(mp3(:,j),'kREPLACE_WITH_DASH_DASH')
+    plot([1 n_vars],[mean(p1(:,j)) mean(p1(:,j))],'b-.')
+    plot(mp2(:,j),'g-o')
+    plot(mp4(:,j),'c-o')
+    
+    plot([0 n_vars],[0.05 0.05],'r:')
+    plot([0 n_vars],[0.01 0.01],'rREPLACE_WITH_DASH_DASH')
+    legend('FDR','ASCA','VASCA','ASCA-genes','\alpha=0.05','\alpha=0.01','Location','southeast')
+    
+    xr = [];
+    yr = [];
+    for i=1:size(p3,2)
+        xr = [xr;i*ones(1,2)];
+        yr = [yr;[mean(p3(:,i,j))-std(p3(:,i,j)) mean(p3(:,i,j))+std(p3(:,i,j))]];
+    end
+    yr(find(yr<minT)) = minT;
+    yr(find(yr>maxT)) = maxT;
+    fill([xr(:,1);flipud(xr(:,2))],[yr(:,1);flipud(yr(:,2))],'k','FaceAlpha',0.2,'EdgeColor','none');
+    xr = [];
+    yr = [];
+    for i=1:size(p2,2)
+        xr = [xr;i*ones(1,2)];
+        yr = [yr;[mean(p2(:,i,j))-std(p2(:,i,j)) mean(p2(:,i,j))+std(p2(:,i,j))]];
+    end
+    yr(find(yr<minT)) = minT;
+    yr(find(yr>maxT)) = maxT;
+    fill([xr(:,1);flipud(xr(:,2))],[yr(:,1);flipud(yr(:,2))],'g','FaceAlpha',0.2,'EdgeColor','none');
+    
+    xr = [];
+    yr = [];
+    for i=1:size(p2,2)
+        xr = [xr;i*ones(1,2)];
+        yr = [yr;[mean(p4(:,i,j))-std(p4(:,i,j)) mean(p4(:,i,j))+std(p4(:,i,j))]];
+    end
+    yr(find(yr<minT)) = minT;
+    yr(find(yr>maxT)) = maxT;
+    fill([xr(:,1);flipud(xr(:,2))],[yr(:,1);flipud(yr(:,2))],'c','FaceAlpha',0.2,'EdgeColor','none');
+    
+    a=get(h,'CurrentAxes');
+    set(a,'FontSize',14)
+    set(a,'YScale','log')
+    ylabel('p-values','FontSize',18)
+    xlabel('Variables in selected order','FontSize',18)
+    
+    saveas(gcf,sprintf('Fig/example1b_100_%d',j));
+    saveas(gcf,sprintf('Fig/example1b_100_%d.eps',j),'epsc');
+    
+    
+%% Plot zoom
+
+    set(a,'Box','on')
+    ylabel('')
+    xlabel('')
+    axis([1 10 1e-3 1])
+    legend HIDE
+    
+    saveas(gcf,sprintf('Fig/example1b_100zoom_%d',j));
+    saveas(gcf,sprintf('Fig/example1b_100zoom_%d.eps',j),'epsc');
+    
+% QQ-plot
+
+figure, qqplot(p1(:,j),makedist('Uniform')), title('QQ-plot ASCA')
+saveas(gcf,'./Fig/example1b_QQ_ASCA_%d');
+saveas(gcf,'./Fig/example1b_QQ_ASCA_%d.eps','epsc');
+
+figure, qqplot(p2(:,1,j),makedist('Uniform')), title('QQ-plot VASCA')
+saveas(gcf,sprintf('./Fig/example1b_QQ_VASCA_%d',j));
+saveas(gcf,sprintf('./Fig/example1b_QQ_VASCA_%d.eps',j),'epsc');
+
+figure, qqplot(p3(:,1,j),makedist('Uniform')), title('QQ-plot FDR')
+saveas(gcf,sprintf('./Fig/example1b_QQ_FDR_%d',j));
+saveas(gcf,sprintf('./Fig/example1b_QQ_FDR_%d.eps',j),'epsc');
+end
+
+
+%% Compute table with statistics
+
+load example1b
+
+name={'FDR_1','ASCA_1','VASCA_1','ASCA-genes_1','FDR_2','ASCA_2','VASCA_2','ASCA-genes_2'}';
+
+X = [];
+for j=1:2
+    p3b = p3(:,:,j)<0.01; % FDR
+    p3_FPR = sum(sum(p3b))/(rep*(n_vars));
+    p1b = p1(:,j)<0.01; % ASCA
+    p1_FPR = sum(p1b)/rep;
+    p2b = p2(:,:,j)<0.01; % VASCA
+    p2_FPR = sum(sum(p2b))/(rep*(n_vars));
+    p4b = p4(:,:,j)<0.01; % ASCA-genes
+    p4_FPR = sum(sum(p4b))/(rep*(n_vars));
+    
+    X = [X;p3_FPR;p1_FPR;p2_FPR;p4_FPR];
+end
+
+T = table(name, X, 'VariableNames', {'Method','FPR'})
+
+
+##### SOURCE END #####
+--></body></html>
