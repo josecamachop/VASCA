@@ -34,7 +34,7 @@ function parglmo = parglm_genes(X, F, interactions, center, n_perm)
 %
 %
 % coded by: José Camacho (josecamacho@ugr.es)
-% last modification: 18/Oct/22
+% last modification: 3/Nov/22
 %
 % Copyright (C) 2022  José Camacho, Universidad de Granada
 %
@@ -184,7 +184,7 @@ end        % permutations
 
 
 for f = 1 : n_factors
-    parglmo.factors{f}.UCD = prctile(factors{f}.D,99);
+    parglmo.factors{f}.UCD = prctile(factors{f}.D',99);
     T = loadings_pca(parglmo.factors{f}.matrix,parglmo.factors{f}.pcs,0,0);
     parglmo.factors{f}.D = diag(T*T');
     parglmo.factors{f}.E = sum((parglmo.factors{f}.matrix - parglmo.factors{f}.matrix*T*T').^2,1);
@@ -199,7 +199,7 @@ for f = 1 : n_factors
 
 end
 for i = 1 : n_interactions
-    parglmo.interactions{i}.UCD = prctile(interacts{i}.D,99);
+    parglmo.interactions{i}.UCD = prctile(interacts{i}.D',99);
     T = loadings_pca(parglmo.interactions{i}.matrix,parglmo.interactions{i}.pcs,0,0);
     parglmo.interactions{i}.D = diag(T*T');
     parglmo.interaction{i}.E = sum((parglmo.interaction{i}.matrix - parglmo.interaction{i}.matrix*T*T').^2,1);

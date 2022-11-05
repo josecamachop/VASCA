@@ -96,7 +96,7 @@ parfor i= 1:rep
     % Unsorted
     p22b(i,:,:) = p2bb;
     % Sorted
-    p2b(i,:,:) = [p2bb(1,parglmoVS.ord_factors(1,:),1)' p2bb(1,parglmoVS.ord_factors(2,:),2)'];
+    p2b(i,:,:) = [sort(p2bb(1,parglmoVS.ord_factors(1,:),1),'ascend')' sort(p2bb(1,parglmoVS.ord_factors(1,:),2),'ascend')'];
 
 end
 
