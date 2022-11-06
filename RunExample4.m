@@ -7,7 +7,7 @@
 % exists between each factor and three variables.
 %
 % coded by: Jose Camacho (josecamacho@ugr.es)
-% last modification: 30/Oct/2022
+% last modification: 05/Nov/2022
 %
 % Copyright (C) 2022  University of Granada, Granada
 % Copyright (C) 2022  Jose Camacho Paez
@@ -56,7 +56,7 @@ parfor i= 1:rep
     fj = randn(length(levels{2}),vars);
     for ii = 1:length(levels{1})
         for j = 1:length(levels{2})
-            X(find(class(:,1) == levels{1}(ii) & class(:,2) == levels{2}(j)),:) = simuleMV(reps,vars,8) + repmat(fi(ii,:) + fj(j,:),reps,1);
+            X(find(class(:,1) == levels{1}(ii) & class(:,2) == levels{2}(j)),:) = simuleMV(reps,vars,8) + repmat(0.5*fi(ii,:) + 0.5*fj(j,:),reps,1);
         end
     end
     
@@ -279,7 +279,7 @@ fi = randn(length(levels{1}),vars);
 fj = randn(length(levels{2}),vars);
 for ii = 1:length(levels{1})
     for j = 1:length(levels{2})
-        X(find(class(:,1) == levels{1}(ii) & class(:,2) == levels{2}(j)),:) = simuleMV(reps,vars,8) + repmat(fi(ii,:) + fj(j,:),reps,1);
+        X(find(class(:,1) == levels{1}(ii) & class(:,2) == levels{2}(j)),:) = simuleMV(reps,vars,8) + repmat(0.5*fi(ii,:) + 0.5*fj(j,:),reps,1);
     end
 end
 

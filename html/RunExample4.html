@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>Fourth simulation example,  subexample A, in Variable-Selection ANOVA Simultaneous Component Analysis. Bioinformatics. 2022</title><meta name="generator" content="MATLAB 9.1"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2022-11-04"><meta name="DC.source" content="RunExample4.m"><style type="text/css">
+      --><title>Fourth simulation example,  subexample A, in Variable-Selection ANOVA Simultaneous Component Analysis. Bioinformatics. 2022</title><meta name="generator" content="MATLAB 9.1"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2022-11-05"><meta name="DC.source" content="RunExample4.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -66,7 +66,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>Fourth simulation example,  subexample A, in Variable-Selection ANOVA Simultaneous Component Analysis. Bioinformatics. 2022</h1><!--introduction--><p>Camacho J, Vitale R, Morales-Jimenez D. and G&oacute;mez-Llorente C.</p><p>In this fourth experiment we simulate data sets with two significant factors, of four and three levels, respectively. Each factor is simulated as in the third example, so that a significant multivariate relationship exists between each factor and three variables.</p><p>coded by: Jose Camacho (<a href="mailto:josecamacho@ugr.es">josecamacho@ugr.es</a>) last modification: 30/Oct/2022</p><p>Copyright (C) 2022  University of Granada, Granada Copyright (C) 2022  Jose Camacho Paez</p><p>This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.</p><p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.</p><p>You should have received a copy of the GNU General Public License along with this program.  If not, see <a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Simulation</a></li><li><a href="#2">Plot Figures: using sorted p-values</a></li><li><a href="#4">Plot zoom</a></li><li><a href="#6">Compute table with statistics: using un-sorted p-values</a></li><li><a href="#7">ASCA-genes example</a></li></ul></div><h2 id="1">Simulation</h2><pre class="codeinput">clear
+  </style></head><body><div class="content"><h1>Fourth simulation example,  subexample A, in Variable-Selection ANOVA Simultaneous Component Analysis. Bioinformatics. 2022</h1><!--introduction--><p>Camacho J, Vitale R, Morales-Jimenez D. and G&oacute;mez-Llorente C.</p><p>In this fourth experiment we simulate data sets with two significant factors, of four and three levels, respectively. Each factor is simulated as in the third example, so that a significant multivariate relationship exists between each factor and three variables.</p><p>coded by: Jose Camacho (<a href="mailto:josecamacho@ugr.es">josecamacho@ugr.es</a>) last modification: 05/Nov/2022</p><p>Copyright (C) 2022  University of Granada, Granada Copyright (C) 2022  Jose Camacho Paez</p><p>This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.</p><p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.</p><p>You should have received a copy of the GNU General Public License along with this program.  If not, see <a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Simulation</a></li><li><a href="#2">Plot Figures: using sorted p-values</a></li><li><a href="#4">Plot zoom</a></li><li><a href="#6">Compute table with statistics: using un-sorted p-values</a></li><li><a href="#7">ASCA-genes example</a></li></ul></div><h2 id="1">Simulation</h2><pre class="codeinput">clear
 
 n_obs = 48;       <span class="comment">% number of individuals</span>
 n_vars = 400;     <span class="comment">% number of responses or variables</span>
@@ -95,7 +95,7 @@ p44 = zeros(rep,n_vars,2);
     fj = randn(length(levels{2}),vars);
     <span class="keyword">for</span> ii = 1:length(levels{1})
         <span class="keyword">for</span> j = 1:length(levels{2})
-            X(find(class(:,1) == levels{1}(ii) &amp; class(:,2) == levels{2}(j)),:) = simuleMV(reps,vars,8) + repmat(fi(ii,:) + fj(j,:),reps,1);
+            X(find(class(:,1) == levels{1}(ii) &amp; class(:,2) == levels{2}(j)),:) = simuleMV(reps,vars,8) + repmat(0.5*fi(ii,:) + 0.5*fj(j,:),reps,1);
         <span class="keyword">end</span>
     <span class="keyword">end</span>
 
@@ -210,7 +210,7 @@ mp4 = squeeze(mean(p4));
 
     saveas(gcf,sprintf(<span class="string">'Fig/example4_100_%d'</span>,j));
     saveas(gcf,sprintf(<span class="string">'Fig/example4_100_%d.eps'</span>,j),<span class="string">'epsc'</span>);
-</pre><img vspace="5" hspace="5" src="RunExample4_01.png" alt=""> <img vspace="5" hspace="5" src="RunExample4_03.png" alt=""> <h2 id="4">Plot zoom</h2><pre class="codeinput">    set(a,<span class="string">'Box'</span>,<span class="string">'on'</span>)
+</pre><img vspace="5" hspace="5" src="RunExample4_02.png" alt=""> <h2 id="4">Plot zoom</h2><pre class="codeinput">    set(a,<span class="string">'Box'</span>,<span class="string">'on'</span>)
     ylabel(<span class="string">''</span>)
     xlabel(<span class="string">''</span>)
     axis([1 10 1e-3 1])
@@ -218,7 +218,7 @@ mp4 = squeeze(mean(p4));
 
     saveas(gcf,sprintf(<span class="string">'Fig/example4_100zoom_%d'</span>,j));
     saveas(gcf,sprintf(<span class="string">'Fig/example4_100zoom_%d.eps'</span>,j),<span class="string">'epsc'</span>);
-</pre><img vspace="5" hspace="5" src="RunExample4_02.png" alt=""> <pre class="codeinput"><span class="keyword">end</span>
+</pre><img vspace="5" hspace="5" src="RunExample4_03.png" alt=""> <pre class="codeinput"><span class="keyword">end</span>
 </pre><pre class="codeoutput">Error using internal.matlab.publish.PublishFigures&gt;printSnap (line 226)
 Could not write to C:\Users\Pepe\Dropbox\VASCA\V2\Zenodo\html.
 FILEATTRIB output is
@@ -252,8 +252,8 @@ Error in snapnow&gt;leavingCell (line 197)
 Error in snapnow (line 133)
                         data = leavingCell(iCell(k), data, doCapture(k));
 
-Error in RunExample4 (line 189)
-end
+Error in RunExample4 (line 181)
+    set(a,'Box','on')
 
 Error in evalmxdom&gt;instrumentAndRun (line 109)
 text = evalc(evalstr);
@@ -267,7 +267,7 @@ Error in publish (line 185)
 Caused by:
     Error using pngwritec
     PNG library failed: Could not open file..
-</pre><img vspace="5" hspace="5" src="RunExample4_05.png" alt=""> <h2 id="6">Compute table with statistics: using un-sorted p-values</h2><pre class="codeinput">load <span class="string">example4</span>
+</pre><h2 id="6">Compute table with statistics: using un-sorted p-values</h2><pre class="codeinput">load <span class="string">example4</span>
 
 name={<span class="string">'FDR F1'</span>,<span class="string">'FDR F2'</span>,<span class="string">'VASCA F1'</span>,<span class="string">'VASCA F2'</span>,<span class="string">'VASCA + bootstrapping F1'</span>,<span class="string">'VASCA + bootstrapping F2'</span>,<span class="string">'ASCA-genes F1'</span>,<span class="string">'ASCA-genes F2'</span>}';
 
@@ -344,14 +344,14 @@ T =
               Method              SigVar1    SigVars2    SigVars3       FPR          FDR   
     __________________________    _______    ________    ________    __________    ________
 
-    'FDR F1'                      0.998      0.969         0.7        0.0001738    0.025219
-    'FDR F2'                      0.995       0.91       0.539       0.00021662    0.033992
-    'VASCA F1'                    0.998      0.996       0.939         0.023768     0.76287
-    'VASCA F2'                    0.997      0.983       0.829         0.016884     0.70469
-    'VASCA + bootstrapping F1'    0.983      0.922        0.52         0.019179     0.75844
-    'VASCA + bootstrapping F2'    0.988      0.865        0.37          0.01435     0.71932
-    'ASCA-genes F1'               0.721      0.343       0.066         0.020053      0.8757
-    'ASCA-genes F2'               0.878      0.529       0.142         0.017474     0.81746
+    'FDR F1'                      0.833      0.459       0.105       0.00010831    0.029861
+    'FDR F2'                      0.816      0.397       0.075       0.00018388    0.053637
+    'VASCA F1'                    0.918      0.823       0.528         0.011627     0.67044
+    'VASCA F2'                    0.887       0.76       0.437        0.0049547     0.48556
+    'VASCA + bootstrapping F1'    0.907      0.787       0.406        0.0090856     0.63203
+    'VASCA + bootstrapping F2'    0.884      0.711       0.233        0.0040428     0.46752
+    'ASCA-genes F1'               0.589      0.216       0.024         0.022171     0.91392
+    'ASCA-genes F2'               0.779      0.377        0.08         0.019781     0.86401
 
 </pre><h2 id="7">ASCA-genes example</h2><pre class="codeinput">close <span class="string">all</span>
 load <span class="string">example4</span>
@@ -367,7 +367,7 @@ fi = randn(length(levels{1}),vars);
 fj = randn(length(levels{2}),vars);
 <span class="keyword">for</span> ii = 1:length(levels{1})
     <span class="keyword">for</span> j = 1:length(levels{2})
-        X(find(class(:,1) == levels{1}(ii) &amp; class(:,2) == levels{2}(j)),:) = simuleMV(reps,vars,8) + repmat(fi(ii,:) + fj(j,:),reps,1);
+        X(find(class(:,1) == levels{1}(ii) &amp; class(:,2) == levels{2}(j)),:) = simuleMV(reps,vars,8) + repmat(0.5*fi(ii,:) + 0.5*fj(j,:),reps,1);
     <span class="keyword">end</span>
 <span class="keyword">end</span>
 
@@ -386,7 +386,7 @@ plot_scatter([(parglmo.factors{f}.D./parglmo.factors{f}.UCD'),(parglmo.factors{f
 title(sprintf(<span class="string">'Factor %d'</span>,f));
 saveas(gcf,<span class="string">'Fig/example4_ana2'</span>);
 saveas(gcf,<span class="string">'Fig/example4_ana2.eps'</span>,<span class="string">'epsc'</span>);
-</pre><img vspace="5" hspace="5" src="RunExample4_06.png" alt=""> <img vspace="5" hspace="5" src="RunExample4_07.png" alt=""> <p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2016b</a><br></p></div><!--
+</pre><img vspace="5" hspace="5" src="RunExample4_04.png" alt=""> <img vspace="5" hspace="5" src="RunExample4_05.png" alt=""> <p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2016b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% Fourth simulation example,  subexample A, in Variable-Selection ANOVA Simultaneous Component Analysis. Bioinformatics. 2022 
 % Camacho J, Vitale R, Morales-Jimenez D. and Gómez-Llorente C. 
@@ -397,7 +397,7 @@ saveas(gcf,<span class="string">'Fig/example4_ana2.eps'</span>,<span class="stri
 % exists between each factor and three variables.
 %
 % coded by: Jose Camacho (josecamacho@ugr.es)
-% last modification: 30/Oct/2022
+% last modification: 05/Nov/2022
 %
 % Copyright (C) 2022  University of Granada, Granada
 % Copyright (C) 2022  Jose Camacho Paez
@@ -446,7 +446,7 @@ parfor i= 1:rep
     fj = randn(length(levels{2}),vars);
     for ii = 1:length(levels{1})
         for j = 1:length(levels{2})
-            X(find(class(:,1) == levels{1}(ii) & class(:,2) == levels{2}(j)),:) = simuleMV(reps,vars,8) + repmat(fi(ii,:) + fj(j,:),reps,1);
+            X(find(class(:,1) == levels{1}(ii) & class(:,2) == levels{2}(j)),:) = simuleMV(reps,vars,8) + repmat(0.5*fi(ii,:) + 0.5*fj(j,:),reps,1);
         end
     end
     
@@ -669,7 +669,7 @@ fi = randn(length(levels{1}),vars);
 fj = randn(length(levels{2}),vars);
 for ii = 1:length(levels{1})
     for j = 1:length(levels{2})
-        X(find(class(:,1) == levels{1}(ii) & class(:,2) == levels{2}(j)),:) = simuleMV(reps,vars,8) + repmat(fi(ii,:) + fj(j,:),reps,1);
+        X(find(class(:,1) == levels{1}(ii) & class(:,2) == levels{2}(j)),:) = simuleMV(reps,vars,8) + repmat(0.5*fi(ii,:) + 0.5*fj(j,:),reps,1);
     end
 end
 
