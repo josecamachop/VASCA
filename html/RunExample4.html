@@ -219,54 +219,7 @@ mp4 = squeeze(mean(p4));
     saveas(gcf,sprintf(<span class="string">'Fig/example4_100zoom_%d'</span>,j));
     saveas(gcf,sprintf(<span class="string">'Fig/example4_100zoom_%d.eps'</span>,j),<span class="string">'epsc'</span>);
 </pre><img vspace="5" hspace="5" src="RunExample4_03.png" alt=""> <pre class="codeinput"><span class="keyword">end</span>
-</pre><pre class="codeoutput">Error using internal.matlab.publish.PublishFigures&gt;printSnap (line 226)
-Could not write to C:\Users\Pepe\Dropbox\VASCA\V2\Zenodo\html.
-FILEATTRIB output is
-
-  archive:1
-  system:0
-  hidden:0
-  directory:1
-  UserRead:1
-  UserWrite:1
-  UserExecute:1
-  GroupRead:NaN
-  GroupWrite:NaN
-  GroupExecute:NaN
-  OtherRead:NaN
-  OtherWrite:NaN
-  OtherExecute:NaN
-
-Error in internal.matlab.publish.PublishFigures.snapFigure (line 138)
-                    feval([method 'Snap'],f,imgFilename,imageFormat,opts);
-
-Error in internal.matlab.publish.PublishFigures/snap (line 57)
-                imgFilename = obj.snapFigure(f,obj.options.filenameGenerator(),obj.options);
-
-Error in internal.matlab.publish.PublishFigures/leavingCell (line 82)
-                imgFilename = snap(obj, f);
-
-Error in snapnow&gt;leavingCell (line 197)
-            newFiles = data.plugins(iPlugins).instance.leavingCell(iCell);
-
-Error in snapnow (line 133)
-                        data = leavingCell(iCell(k), data, doCapture(k));
-
-Error in RunExample4 (line 181)
-    set(a,'Box','on')
-
-Error in evalmxdom&gt;instrumentAndRun (line 109)
-text = evalc(evalstr);
-
-Error in evalmxdom (line 21)
-[data,text,laste] = instrumentAndRun(file,cellBoundaries,imageDir,imagePrefix,options);
-
-Error in publish (line 185)
-    dom = evalmxdom(file,dom,cellBoundaries,prefix,imageDir,outputDir,options);
-
-Caused by:
-    Error using pngwritec
-    PNG library failed: Could not open file..
+</pre><pre class="codeoutput">
 </pre><h2 id="6">Compute table with statistics: using un-sorted p-values</h2><pre class="codeinput">load <span class="string">example4</span>
 
 name={<span class="string">'FDR F1'</span>,<span class="string">'FDR F2'</span>,<span class="string">'VASCA F1'</span>,<span class="string">'VASCA F2'</span>,<span class="string">'VASCA + bootstrapping F1'</span>,<span class="string">'VASCA + bootstrapping F2'</span>,<span class="string">'ASCA-genes F1'</span>,<span class="string">'ASCA-genes F2'</span>}';
