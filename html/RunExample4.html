@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>Fourth simulation example,  subexample A, in Variable-Selection ANOVA Simultaneous Component Analysis. Bioinformatics. 2022</title><meta name="generator" content="MATLAB 9.1"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2022-11-05"><meta name="DC.source" content="RunExample4.m"><style type="text/css">
+      --><title>Fourth simulation example,  subexample A, in Variable-Selection ANOVA Simultaneous Component Analysis. Bioinformatics. 2022</title><meta name="generator" content="MATLAB 9.1"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2022-11-24"><meta name="DC.source" content="RunExample4.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -140,7 +140,6 @@ p44 = zeros(rep,n_vars,2);
 <span class="keyword">end</span>
 
 save <span class="string">example4</span>
-</pre><pre class="codeoutput">Starting parallel pool (parpool) using the 'local' profile ... connected to 8 workers.
 </pre><h2 id="2">Plot Figures: using sorted p-values</h2><pre class="codeinput">load <span class="string">example4</span>
 
 minT = 1e-3;
@@ -210,7 +209,7 @@ mp4 = squeeze(mean(p4));
 
     saveas(gcf,sprintf(<span class="string">'Fig/example4_100_%d'</span>,j));
     saveas(gcf,sprintf(<span class="string">'Fig/example4_100_%d.eps'</span>,j),<span class="string">'epsc'</span>);
-</pre><img vspace="5" hspace="5" src="RunExample4_02.png" alt=""> <h2 id="4">Plot zoom</h2><pre class="codeinput">    set(a,<span class="string">'Box'</span>,<span class="string">'on'</span>)
+</pre><img vspace="5" hspace="5" src="RunExample4_01.png" alt=""> <img vspace="5" hspace="5" src="RunExample4_03.png" alt=""> <h2 id="4">Plot zoom</h2><pre class="codeinput">    set(a,<span class="string">'Box'</span>,<span class="string">'on'</span>)
     ylabel(<span class="string">''</span>)
     xlabel(<span class="string">''</span>)
     axis([1 10 1e-3 1])
@@ -218,8 +217,7 @@ mp4 = squeeze(mean(p4));
 
     saveas(gcf,sprintf(<span class="string">'Fig/example4_100zoom_%d'</span>,j));
     saveas(gcf,sprintf(<span class="string">'Fig/example4_100zoom_%d.eps'</span>,j),<span class="string">'epsc'</span>);
-</pre><img vspace="5" hspace="5" src="RunExample4_03.png" alt=""> <pre class="codeinput"><span class="keyword">end</span>
-</pre><pre class="codeoutput">
+</pre><img vspace="5" hspace="5" src="RunExample4_02.png" alt=""> <img vspace="5" hspace="5" src="RunExample4_04.png" alt=""> <pre class="codeinput"><span class="keyword">end</span>
 </pre><h2 id="6">Compute table with statistics: using un-sorted p-values</h2><pre class="codeinput">load <span class="string">example4</span>
 
 name={<span class="string">'FDR F1'</span>,<span class="string">'FDR F2'</span>,<span class="string">'VASCA F1'</span>,<span class="string">'VASCA F2'</span>,<span class="string">'VASCA + bootstrapping F1'</span>,<span class="string">'VASCA + bootstrapping F2'</span>,<span class="string">'ASCA-genes F1'</span>,<span class="string">'ASCA-genes F2'</span>}';
@@ -297,14 +295,14 @@ T =
               Method              SigVar1    SigVars2    SigVars3       FPR          FDR   
     __________________________    _______    ________    ________    __________    ________
 
-    'FDR F1'                      0.833      0.459       0.105       0.00010831    0.029861
-    'FDR F2'                      0.816      0.397       0.075       0.00018388    0.053637
-    'VASCA F1'                    0.918      0.823       0.528         0.011627     0.67044
-    'VASCA F2'                    0.887       0.76       0.437        0.0049547     0.48556
-    'VASCA + bootstrapping F1'    0.907      0.787       0.406        0.0090856     0.63203
-    'VASCA + bootstrapping F2'    0.884      0.711       0.233        0.0040428     0.46752
-    'ASCA-genes F1'               0.589      0.216       0.024         0.022171     0.91392
-    'ASCA-genes F2'               0.779      0.377        0.08         0.019781     0.86401
+    'FDR F1'                      0.849      0.517       0.157       0.00015617    0.039117
+    'FDR F2'                      0.832      0.446       0.088       0.00019899    0.054671
+    'VASCA F1'                    0.903      0.798       0.511         0.014456      0.7218
+    'VASCA F2'                    0.895      0.759       0.412         0.017196     0.76768
+    'VASCA + bootstrapping F1'    0.888      0.761        0.39        0.0084282     0.62136
+    'VASCA + bootstrapping F2'    0.886      0.687       0.237         0.007471     0.62102
+    'ASCA-genes F1'               0.613      0.201       0.024          0.02169     0.91131
+    'ASCA-genes F2'               0.778      0.382       0.072         0.020219     0.86694
 
 </pre><h2 id="7">ASCA-genes example</h2><pre class="codeinput">close <span class="string">all</span>
 load <span class="string">example4</span>
@@ -339,7 +337,7 @@ plot_scatter([(parglmo.factors{f}.D./parglmo.factors{f}.UCD'),(parglmo.factors{f
 title(sprintf(<span class="string">'Factor %d'</span>,f));
 saveas(gcf,<span class="string">'Fig/example4_ana2'</span>);
 saveas(gcf,<span class="string">'Fig/example4_ana2.eps'</span>,<span class="string">'epsc'</span>);
-</pre><img vspace="5" hspace="5" src="RunExample4_04.png" alt=""> <img vspace="5" hspace="5" src="RunExample4_05.png" alt=""> <p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2016b</a><br></p></div><!--
+</pre><img vspace="5" hspace="5" src="RunExample4_05.png" alt=""> <img vspace="5" hspace="5" src="RunExample4_06.png" alt=""> <p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2016b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% Fourth simulation example,  subexample A, in Variable-Selection ANOVA Simultaneous Component Analysis. Bioinformatics. 2022 
 % Camacho J, Vitale R, Morales-Jimenez D. and Gómez-Llorente C. 

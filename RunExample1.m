@@ -67,11 +67,11 @@ parfor i= 1:rep
     
     p1(i) = parglmo.p;
     p2(i,:) = parglmoVS.p(parglmoVS.ord_factors);
-    p3(i,:) = parglmoMC.p(parglmoMC.ord_factors);
+    p3(i,:) = parglmoMC.q(parglmoMC.ord_factors);
     
     p1F(i) = parglmoF.p;
     p2F(i,:) = parglmoVSF.p(parglmoVSF.ord_factors);
-    p3F(i,:) = parglmoMCF.p(parglmoMCF.ord_factors);
+    p3F(i,:) = parglmoMCF.q(parglmoMCF.ord_factors);
 end
 
 save example1

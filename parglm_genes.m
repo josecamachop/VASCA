@@ -1,4 +1,4 @@
-function parglmo = parglm_genes(X, F, interactions, center, n_perm)
+function parglmo = parglm_genes(X, F, interactions, center, n_perm, fmtc)
 
 % Parallel General Linear Model to obtain multivariate factor and interaction 
 % matrices in a crossed experimental design and permutation test for multivariate 
@@ -6,7 +6,7 @@ function parglmo = parglm_genes(X, F, interactions, center, n_perm)
 %
 % Related routines: asca, apca, parglm, parglmVS, parglmMC, create_design
 %
-% parglmo = parglm(X, F, interactions, prep, n_perm)   % complete call
+% parglmo = parglm(X, F, interactions, prep, n_perm, fmtc)   % complete call
 %
 %
 % INPUTS:
@@ -26,6 +26,13 @@ function parglmo = parglm_genes(X, F, interactions, center, n_perm)
 %
 % n_perm: [1x1] number of permutations (1000 by default)
 %
+% fmtc: [1x1] correct for multiple-tesis when multifactorial (multi-way)
+% analysis
+%       0: do not correct (by default)
+%       1: Bonferroni 
+%       2: Holm step-up or Hochberg step-down
+%       3: Benjamini-Hochberg step-down (FDR)
+%
 %
 % OUTPUTS:
 %
@@ -34,7 +41,7 @@ function parglmo = parglm_genes(X, F, interactions, center, n_perm)
 %
 %
 % coded by: José Camacho (josecamacho@ugr.es)
-% last modification: 3/Nov/22
+% last modification: 23/Nov/22
 %
 % Copyright (C) 2022  José Camacho, Universidad de Granada
 %
@@ -61,17 +68,23 @@ M = size(X, 2);
 if nargin < 3 || isempty(interactions), interactions = []; end;
 if nargin < 4 || isempty(center), center = 2; end;
 if nargin < 5 || isempty(n_perm), n_perm = 1000; end;
+if nargin < 6 || isempty(fmtc), fmtc = 0; end;
 
 % Validate dimensions of input data
 assert (isequal(size(center), [1 1]), 'Dimension Error: 4th argument must be 1-by-1. Type ''help %s'' for more info.', routine(1).name);
 assert (isequal(size(n_perm), [1 1]), 'Dimension Error: 5th argument must be 1-by-1. Type ''help %s'' for more info.', routine(1).name);
+assert (isequal(size(fmtc), [1 1]), 'Dimension Error: 6th argument must be 1-by-1. Type ''help %s'' for more info.', routine(1).name);
 
 
 %% Main code
                   
 n_interactions      = size(interactions,1);      % number of interactions
 n_factors           = size(F,2);                 % number of factors
-mtcc                = n_factors + n_interactions;       % correction for the number of tests
+if fmtc
+    mtcc                = n_factors + n_interactions;        % correction for the number of tests
+else
+    mtcc = 1;
+end
 SSQ_factors         = zeros(n_perm*mtcc + 1,n_factors,1);      % sum of squares for factors
 SSQ_interactions    = zeros(n_perm*mtcc + 1,n_interactions);   % sum of squares for interactions
 p_factor            = zeros(n_factors,M);                % p-values factors
@@ -229,8 +242,25 @@ if n_interactions>0
 end
 
 % Multiple test correction for several factors/interactions
-p_factor = min(1,p_factor * mtcc); 
-p_interaction = min(Inf,p_interaction * mtcc); 
-
 parglmo.p = [p_factor' p_interaction'];
+if mtcc > 1
+    switch fmtc
+        case 1 % Bonferroni 
+            parglmo.p = min(1,parglmo.p * mtcc); 
 
+        case 2 % Holm/Hochberg
+            [~,indx] = sort(min(parglmo.p),'ascend');
+            for ind = 1 : mtcc 
+                parglmo.p(:,indx(ind)) = min(1,parglmo.p(:,indx(ind)) * (mtcc-ind+1));
+            end
+
+        case 3 % Benjamini & Hochberg
+            [mv,indmv] = min(parglmo.p);
+            [~,indx] = sort(mv,'ascend');
+            parglmo.p(:,indx(mtcc)) = parglmo.p(:,indx(mtcc));
+            for ind = mtcc-1 : -1 : 1 
+                parglmo.p(indmv(indx(ind)),indx(ind)) = min(1,min(parglmo.p(indmv(indx(ind)),indx(ind)) * mtcc/ind,parglmo.p(indmv(indx(ind+1)),indx(ind+1))));
+                parglmo.p(:,indx(ind)) = parglmo.p(:,indx(ind))*parglmo.p(indmv(indx(ind)),indx(ind))/parglmo.p(indmv(indx(ind)),indx(ind));
+            end
+    end
+end

@@ -4,7 +4,7 @@
 % We simulate a single factor with two levels and 40 subjects for which 400 
 % variables or responses (e.g., -omics features) are collected. We generate 
 % significant one-to-one relationships between the single factor and 3 
-% variables out of the 400.
+% variables out of the 400 with a small bias.
 %
 % coded by: Jose Camacho (josecamacho@ugr.es)
 % last modification: 30/Oct/2022
@@ -97,11 +97,11 @@ disp(sprintf('Average time for VASCA: %d seconds',mean(t2)))
 disp(sprintf('Average time for VASCA + bootstrap: %d seconds',mean(t2b)))
 disp(sprintf('Average time for FDR: %d seconds',mean(t3)))
 
-save example2
+save example2b
 
 %% Plot Figures: using sorted p-values 
 
-load example2
+load example2b
 
 minT = 1e-3;
 maxT = 1;
@@ -165,8 +165,8 @@ ylabel('p-values','FontSize',18)
 xlabel('Variables in selected order','FontSize',18)
 legend('FDR','ASCA','VASCA','VASCA + bootstrapping','\alpha=0.05','\alpha=0.01','Location','southeast')
 
-saveas(gcf,'Fig/example2');
-saveas(gcf,'Fig/example2.eps','epsc');
+saveas(gcf,'Fig/example2b');
+saveas(gcf,'Fig/example2b.eps','epsc');
 
 %% Plot zoom
 
@@ -176,13 +176,13 @@ xlabel('')
 axis([1 10 1e-3 1])
 legend HIDE
 
-saveas(gcf,'Fig/example2_100zoom');
-saveas(gcf,'Fig/example2_100zoom.eps','epsc');
+saveas(gcf,'Fig/example2b_100zoom');
+saveas(gcf,'Fig/example2b_100zoom.eps','epsc');
 
 
 %% Compute table with statistics: using un-sorted p-values
 
-load example2
+load example2b
 
 name={'VASCA','VASCA + bootstrap','FDR'}';
 
@@ -217,7 +217,7 @@ T = table(name, X(:,1), X(:,2), X(:,3), X(:,4), X(:,5), 'VariableNames', {'Metho
 
 %% ASCA with 6 variables selected
 
-load example2
+load example2b
 
 s = rng(0);
     
@@ -234,15 +234,15 @@ selvar = parglmoVS.ord_factors(1:6);
 ascao = asca(parglmo);
 
 scores(ascao.factors{1},[],[],[],[],ascao.design(:,1));
-saveas(gcf,'Fig/example2_scores');
-saveas(gcf,'Fig/example2_scores.eps','epsc');
+saveas(gcf,'Fig/example2b_scores');
+saveas(gcf,'Fig/example2b_scores.eps','epsc');
 loadings(ascao.factors{1});
-saveas(gcf,'Fig/example2_loadings');
-saveas(gcf,'Fig/example2_loadings.eps','epsc');
+saveas(gcf,'Fig/example2b_loadings');
+saveas(gcf,'Fig/example2b_loadings.eps','epsc');
 
 pbootasca(X(:,selvar),class,ascao,1);
 a=get(gcf,'CurrentAxes');
 set(a,'FontSize',14)
 
-saveas(gcf,'Fig/example2_loadboot');
-saveas(gcf,'Fig/example2_loadboot.eps','epsc');
+saveas(gcf,'Fig/example2b_loadboot');
+saveas(gcf,'Fig/example2b_loadboot.eps','epsc');

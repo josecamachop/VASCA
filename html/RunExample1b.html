@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>First simulation example, subexample B, in Variable-Selection ANOVA Simultaneous Component Analysis. Bioinformatics. 2022</title><meta name="generator" content="MATLAB 9.1"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2022-11-01"><meta name="DC.source" content="RunExample1b.m"><style type="text/css">
+      --><title>First simulation example, subexample B, in Variable-Selection ANOVA Simultaneous Component Analysis. Bioinformatics. 2022</title><meta name="generator" content="MATLAB 9.1"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2022-11-24"><meta name="DC.source" content="RunExample1b.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -108,6 +108,7 @@ p4 = zeros(rep,n_vars,2);
 <span class="keyword">end</span>
 
 save <span class="string">example1b</span>
+</pre><pre class="codeoutput">Starting parallel pool (parpool) using the 'local' profile ... connected to 8 workers.
 </pre><h2 id="2">Plot Figures</h2><pre class="codeinput">load <span class="string">example1b</span>
 
 minT = 1e-3;
@@ -176,7 +177,7 @@ mp4 = squeeze(mean(p4));
 
     saveas(gcf,sprintf(<span class="string">'Fig/example1b_100_%d'</span>,j));
     saveas(gcf,sprintf(<span class="string">'Fig/example1b_100_%d.eps'</span>,j),<span class="string">'epsc'</span>);
-</pre><img vspace="5" hspace="5" src="RunExample1b_01.png" style="width:560px;height:420px;" alt=""> <img vspace="5" hspace="5" src="RunExample1b_06.png" style="width:560px;height:420px;" alt=""> <h2 id="4">Plot zoom</h2><pre class="codeinput">    set(a,<span class="string">'Box'</span>,<span class="string">'on'</span>)
+</pre><img vspace="5" hspace="5" src="RunExample1b_01.png" alt=""> <img vspace="5" hspace="5" src="RunExample1b_06.png" alt=""> <h2 id="4">Plot zoom</h2><pre class="codeinput">    set(a,<span class="string">'Box'</span>,<span class="string">'on'</span>)
     ylabel(<span class="string">''</span>)
     xlabel(<span class="string">''</span>)
     axis([1 10 1e-3 1])
@@ -198,7 +199,7 @@ saveas(gcf,sprintf(<span class="string">'./Fig/example1b_QQ_VASCA_%d.eps'</span>
 figure, qqplot(p3(:,1,j),makedist(<span class="string">'Uniform'</span>)), title(<span class="string">'QQ-plot FDR'</span>)
 saveas(gcf,sprintf(<span class="string">'./Fig/example1b_QQ_FDR_%d'</span>,j));
 saveas(gcf,sprintf(<span class="string">'./Fig/example1b_QQ_FDR_%d.eps'</span>,j),<span class="string">'epsc'</span>);
-</pre><img vspace="5" hspace="5" src="RunExample1b_02.png" style="width:560px;height:420px;" alt=""> <img vspace="5" hspace="5" src="RunExample1b_03.png" style="width:560px;height:420px;" alt=""> <img vspace="5" hspace="5" src="RunExample1b_04.png" style="width:560px;height:420px;" alt=""> <img vspace="5" hspace="5" src="RunExample1b_05.png" style="width:560px;height:420px;" alt=""> <img vspace="5" hspace="5" src="RunExample1b_07.png" style="width:560px;height:420px;" alt=""> <img vspace="5" hspace="5" src="RunExample1b_08.png" style="width:560px;height:420px;" alt=""> <img vspace="5" hspace="5" src="RunExample1b_09.png" style="width:560px;height:420px;" alt=""> <img vspace="5" hspace="5" src="RunExample1b_10.png" style="width:560px;height:420px;" alt=""> <pre class="codeinput"><span class="keyword">end</span>
+</pre><img vspace="5" hspace="5" src="RunExample1b_02.png" alt=""> <img vspace="5" hspace="5" src="RunExample1b_03.png" alt=""> <img vspace="5" hspace="5" src="RunExample1b_04.png" alt=""> <img vspace="5" hspace="5" src="RunExample1b_05.png" alt=""> <img vspace="5" hspace="5" src="RunExample1b_07.png" alt=""> <img vspace="5" hspace="5" src="RunExample1b_08.png" alt=""> <img vspace="5" hspace="5" src="RunExample1b_09.png" alt=""> <img vspace="5" hspace="5" src="RunExample1b_10.png" alt=""> <pre class="codeinput"><span class="keyword">end</span>
 </pre><h2 id="6">Compute table with statistics</h2><pre class="codeinput">load <span class="string">example1b</span>
 
 name={<span class="string">'FDR_1'</span>,<span class="string">'ASCA_1'</span>,<span class="string">'VASCA_1'</span>,<span class="string">'ASCA-genes_1'</span>,<span class="string">'FDR_2'</span>,<span class="string">'ASCA_2'</span>,<span class="string">'VASCA_2'</span>,<span class="string">'ASCA-genes_2'</span>}';
@@ -224,14 +225,14 @@ T =
         Method           FPR   
     ______________    _________
 
-    'FDR_1'             0.00019
-    'ASCA_1'              0.009
-    'VASCA_1'         0.0058475
-    'ASCA-genes_1'      0.02446
-    'FDR_2'             3.5e-05
-    'ASCA_2'              0.005
-    'VASCA_2'           0.00186
-    'ASCA-genes_2'     0.024945
+    'FDR_1'           0.0002275
+    'ASCA_1'              0.017
+    'VASCA_1'          0.015537
+    'ASCA-genes_1'      0.02419
+    'FDR_2'           0.0001425
+    'ASCA_2'              0.007
+    'VASCA_2'           0.00792
+    'ASCA-genes_2'     0.024665
 
 </pre><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2016b</a><br></p></div><!--
 ##### SOURCE BEGIN #####

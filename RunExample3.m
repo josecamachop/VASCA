@@ -59,11 +59,11 @@ parfor i= 1:rep % Main loop
     
     % Sorted p-values
     p2(i,:) = parglmoVS.p(parglmoVS.ord_factors);
-    p3(i,:) = parglmoMC.p(parglmoMC.ord_factors);
+    p3(i,:) = parglmoMC.q(parglmoMC.ord_factors);
     
     % Unsorted p-values
     p22(i,:) = parglmoVS.p;
-    p33(i,:) = parglmoMC.p;
+    p33(i,:) = parglmoMC.q;
     
     p2bb = p22(i,:);
     ind = find(p22(i,:)<0.01); % VASCA + bootstrapping
