@@ -1,4 +1,4 @@
-%% Fourth simulation example,  subexample A, in Variable-Selection ANOVA Simultaneous Component Analysis. Bioinformatics. 2022 
+%% Fourth simulation example in Variable-Selection ANOVA Simultaneous Component Analysis. Bioinformatics. 2022 
 % Camacho J, Vitale R, Morales-Jimenez D. and Gómez-Llorente C. 
 %
 % In this fourth experiment we simulate data sets with two significant 

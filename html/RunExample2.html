@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>Second simulation example in Variable-Selection ANOVA Simultaneous Component Analysis. Bioinformatics. 2022</title><meta name="generator" content="MATLAB 9.1"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2022-11-02"><meta name="DC.source" content="RunExample2.m"><style type="text/css">
+      --><title>Second simulation example in Variable-Selection ANOVA Simultaneous Component Analysis. Bioinformatics. 2022</title><meta name="generator" content="MATLAB 9.1"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2022-12-07"><meta name="DC.source" content="RunExample2.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -137,10 +137,10 @@ disp(sprintf(<span class="string">'Average time for VASCA + bootstrap: %d second
 disp(sprintf(<span class="string">'Average time for FDR: %d seconds'</span>,mean(t3)))
 
 save <span class="string">example2</span>
-</pre><pre class="codeoutput">Average time for ASCA: 1.332614e-01 seconds
-Average time for VASCA: 2.703678e+00 seconds
-Average time for VASCA + bootstrap: 2.895922e+01 seconds
-Average time for FDR: 5.703673e+01 seconds
+</pre><pre class="codeoutput">Average time for ASCA: 1.258909e-01 seconds
+Average time for VASCA: 2.543383e+00 seconds
+Average time for VASCA + bootstrap: 2.733498e+01 seconds
+Average time for FDR: 5.301838e+01 seconds
 </pre><h2 id="2">Plot Figures: using sorted p-values</h2><pre class="codeinput">load <span class="string">example2</span>
 
 minT = 1e-3;
@@ -252,9 +252,9 @@ T =
           Method           SigVar1    SigVars2    SigVars3       FPR          FDR   
     ___________________    _______    ________    ________    __________    ________
 
-    'VASCA'                1          1           1             0.056103      0.8813
-    'VASCA + bootstrap'    1          1           1             0.021922     0.74366
-    'FDR'                  1          1           1           0.00025945    0.033194
+    'VASCA'                1          1           1             0.062048     0.89143
+    'VASCA + bootstrap'    1          1           1             0.023469     0.75643
+    'FDR'                  1          1           1           0.00047103    0.058676
 
 </pre><h2 id="5">ASCA with 6 variables selected</h2><pre class="codeinput">load <span class="string">example2</span>
 

@@ -1,4 +1,4 @@
-%% Second simulation example in Variable-Selection ANOVA Simultaneous Component Analysis. Bioinformatics. 2022 
+%% Second simulation example, subexample B, in Variable-Selection ANOVA Simultaneous Component Analysis. Bioinformatics. 2022 
 % Camacho J, Vitale R, Morales-Jimenez D. and Gómez-Llorente C. 
 %
 % We simulate a single factor with two levels and 40 subjects for which 400 
@@ -213,36 +213,3 @@ p3 = [p3_1var p3_2var p3_3var p3_FPR p3_FDR];
 X = [p2;p2b;p3];
 
 T = table(name, X(:,1), X(:,2), X(:,3), X(:,4), X(:,5), 'VariableNames', {'Method','SigVar1','SigVars2','SigVars3','FPR','FDR'})
-
-
-%% ASCA with 6 variables selected
-
-load example2b
-
-s = rng(0);
-    
-class = sign(randn(n_obs,1));                    % Random association of individuals to the class
-X = [randn(n_obs,3) simuleMV(n_obs,n_vars-3,7)]; % Variables from 4 to 400 are independent to the class, and obtained with simuleMV with a medium correlation level
-X(:,1:3) = X(:,1:3) + 0.5*class;                % Introduction of a bias cosistent with the class. As a result, the first three variables present one-to-one conection with the factor
-
-[~,parglmoVS] = parglmVS(X,class,[],[],[],0); % GLM factorization and (VASCA-type) incremental multivariate significance testing
-    
-selvar = parglmoVS.ord_factors(1:6);
-
-[~,parglmo] = parglm(X(:,selvar),class); % No variables selection
-
-ascao = asca(parglmo);
-
-scores(ascao.factors{1},[],[],[],[],ascao.design(:,1));
-saveas(gcf,'Fig/example2b_scores');
-saveas(gcf,'Fig/example2b_scores.eps','epsc');
-loadings(ascao.factors{1});
-saveas(gcf,'Fig/example2b_loadings');
-saveas(gcf,'Fig/example2b_loadings.eps','epsc');
-
-pbootasca(X(:,selvar),class,ascao,1);
-a=get(gcf,'CurrentAxes');
-set(a,'FontSize',14)
-
-saveas(gcf,'Fig/example2b_loadboot');
-saveas(gcf,'Fig/example2b_loadboot.eps','epsc');
